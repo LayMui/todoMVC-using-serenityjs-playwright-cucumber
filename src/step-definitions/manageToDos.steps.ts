@@ -57,16 +57,47 @@ When('{pronoun} completes each item in the list', async (actor: Actor) => {
     const items = await actor.answer(notes().get('items'));
     await actor.attemptsTo(
         ManageToDo.completeAllTasks(items)
-       
     );
 });
 
 
 
-Then('{pronoun} should see all items mark as completed', async(actor: Actor) => {     
-    
+Then('{pronoun} should able to see the list is clear', async(actor: Actor) => {     
+    await actor.attemptsTo(
+       VerifyToDo.isCompleted("0 items left!\nAllActiveCompleted\nClear completed")
+    );
    
 });
 
 
+When('{pronoun} clear off all items completed', async (actor: Actor) => {
+    await actor.attemptsTo(
+        ManageToDo.clearCompletedTask()
+    );
+});
+
+Then('{pronoun} is able to see the list is now empty', async(actor: Actor) => {     
+    await actor.attemptsTo(
+     VerifyToDo.isEmpty()
+    );
+   
+});
+
+
+When('{pronoun} wants to remove items the todo list', async (actor: Actor) => {
+
+    const items = await actor.answer(notes().get('items'));
+    await actor.attemptsTo(
+        ManageToDo.removeUnCompletedTasks(items)
+    );
+});
+
+
+
+Then('{pronoun} is able to see the list is clear', async(actor: Actor) => {     
+    await actor.attemptsTo(
+        VerifyToDo.isCompleted("0 items left!\nAllActiveCompleted\nClear completed")
+    );
+   
+});
 

@@ -8,23 +8,23 @@ Feature: Manage MVC todos
 
   Background:
     Given Alice use the todo MVC app 
-
+@test
   Scenario Outline: Add todo item
     When she adds item "<item>" to the list of what needs to be done
     Then she should see item added to the list to be completed
-   
 
     Examples:
       | item          |
       | QA testing    |
       | cycling       |
 
-
 @test
-  Scenario Outline: Complete and remove todo item
+  Scenario Outline: Complete all the todo items
     Given she has already added some items "<items>" in the todo list 
     When she completes each item in the list 
-    Then she should see all items mark as completed
+    Then she is able to see the list is clear
+    When she clear off all items completed
+    And she is able to see the list is now empty
    
 
     Examples:
@@ -33,5 +33,14 @@ Feature: Manage MVC todos
    
 
 
-
+@test
+    Scenario Outline: Able to remove all items individually
+    Given she has already added some items "<items>" in the todo list 
+    When she wants to remove items the todo list
+    Then she is able to see the list is clear
    
+    Examples:
+      | items                               |
+      | QA testing, cycling, washing car    |
+   
+

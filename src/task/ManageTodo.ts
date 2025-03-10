@@ -1,6 +1,7 @@
 import { Duration, Task, Wait } from '@serenity-js/core';
-import { Enter, isVisible, Key, Press, Click } from '@serenity-js/web';
+import { Enter, isVisible, Key, Press, Click, Hover } from '@serenity-js/web';
 import { ToDoPage } from '../page-objects/TodoPage';
+import { clearCompletedButton } from '../page-objects/clearCompletedItem';
 
 /**
  * This is called a "Task".
@@ -46,7 +47,6 @@ export const ManageToDo = {
     completeAllTasks: (items: string) => {
       const itemArray = items.split(',').map(item => item.trim());
 
-      // The main issue: Missing return statement here
       return Task.where(
           `#actor completes all tasks in the todo`,
           Wait.upTo(Duration.ofMilliseconds(50000)).until(
@@ -56,11 +56,46 @@ export const ManageToDo = {
           ...itemArray.map(item =>
               Task.where(
                   `#actor complete item ${item}`,
-                  // Assuming todoItemByLabelText returns the toggle checkbox for the item with the specified label
-                  // If it returns the label itself, you need to modify this to target the checkbox
                   Click.on(ToDoPage.todoItemByLabelText(item))
               )
           )
       );
-  }
+  },
+
+  clearCompletedTask: () =>
+    Task.where(
+        `#actor clear off all completed tasks`,
+        Wait.upTo(Duration.ofMilliseconds(50000)).until(
+           clearCompletedButton(),
+            isVisible()
+        ),
+        Click.on(clearCompletedButton())
+       
+    ),
+
+
+
+    removeUnCompletedTasks: (items: string) => {
+      const itemArray = items.split(',').map(item => item.trim());
+
+      return Task.where(
+          `#actor removes all uncompleted tasks in the todo`,
+          Wait.upTo(Duration.ofMilliseconds(50000)).until(
+              ToDoPage.todoList(),
+              isVisible()
+          ),
+          ...itemArray.map(item =>
+              Task.where(
+                  `#actor complete item ${item}`,
+                  Click.on(ToDoPage.todoItemByLabelText(item)),
+                  //Hover.over(ToDoPage.todoItemByLabelText(item)),
+                  Click.on(ToDoPage.todoItemByDestroyButtonText(item)),
+
+                
+              )
+          ),
+          
+      );
+  },
+
 };

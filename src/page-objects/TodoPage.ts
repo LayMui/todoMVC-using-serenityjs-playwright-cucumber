@@ -5,7 +5,7 @@ export const ToDoPage = {
 
 
   todoList: () =>   PageElement.located(By.css('ul[data-testid=todo-list]')),
-  todoItem: () =>   PageElement.located(By.css('li[data-testid=todo-item]')),
+
 
   destroyTodo: () =>
     PageElement.located(By.css('button[data-testid=todo-item-button]')),
@@ -17,7 +17,10 @@ export const ToDoPage = {
     PageElement.located(By.css('label[data-testid=todo-item-label]')),
 
  todoItemByLabelText: (text: string) => 
-    PageElement.located(By.cssContainingText('[data-testid="todo-item-toggle"]', text))
+ PageElement.located(By.xpath(`//label[@data-testid="todo-item-label"][contains(text(), "${text}")]/preceding-sibling::input[@data-testid="todo-item-toggle"]`)),
+
+ todoItemByDestroyButtonText: (text: string) => 
+  PageElement.located(By.xpath(`//div[@class="view"]//label[@data-testid="todo-item-label" and text()="${text}"]`))
 
 
 }

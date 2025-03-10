@@ -1,8 +1,10 @@
 import { Duration, Task, Wait } from '@serenity-js/core'
 import { By, Enter, isVisible, PageElements, } from '@serenity-js/web'
 import { ToDoPage } from '../page-objects/TodoPage'
-import { Ensure, equals, includes } from '@serenity-js/assertions'
+import { Ensure, equals, isFalse } from '@serenity-js/assertions'
 import { itemAdded, itemNameAdded } from '../page-objects/ItemAdded'
+import { todoCount, todoCountStatus } from '../page-objects/todoCount'
+import { clearCompletedButton } from '../page-objects/clearCompletedItem'
 
 
 /**
@@ -25,11 +27,16 @@ export const VerifyToDo = {
     
     ),
 
+    isCompleted: (actualText: string) => 
+       
+     Task.where(
+        `#actor verify task completion`,
+        Ensure.that(todoCountStatus(), equals(actualText))
+      ),
 
-
-
-
-          
-        
-          
-}
+      isEmpty: () => 
+        Task.where(
+           `#actor verify list is empty`,
+           Ensure.that(clearCompletedButton().isPresent(), isFalse()),
+         )
+};
