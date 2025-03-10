@@ -15,8 +15,8 @@
   },
 
   "include": [
-    "features/**/*.ts",
-    "test/**/*.ts"
+    "src/**/*.ts",
+   "src/Actors.ts"  
   ],
 
   "exclude": [

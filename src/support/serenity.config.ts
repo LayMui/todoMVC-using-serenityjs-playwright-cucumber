@@ -1,9 +1,11 @@
 import { AfterAll, BeforeAll, setDefaultTimeout } from '@cucumber/cucumber';
 import { configure, Duration } from '@serenity-js/core';
-import path from 'path';
-import * as playwright from 'playwright';
 
-import { Actors } from '../../test';
+import * as playwright from 'playwright';
+import { Actors } from '../Actors';
+
+import path from 'path';
+
 
 const timeouts = {
     cucumber: {
@@ -27,7 +29,7 @@ BeforeAll(async () => {
     // Launch the browser once before all the tests
     // Serenity/JS will take care of managing Playwright browser context and browser tabs.
     browser = await playwright.chromium.launch({
-        headless: true,
+        headless: false,
     });
 
     // Configure Serenity/JS
@@ -35,7 +37,7 @@ BeforeAll(async () => {
 
         // Configure Serenity/JS actors to use Playwright browser
         actors: new Actors(browser, {
-            baseURL:                    'https://the-internet.herokuapp.com/',
+            baseURL:                    'https://todomvc.com/examples/react/dist/',
             defaultNavigationTimeout:   timeouts.playwright.defaultNavigationTimeout.inMilliseconds(),
             defaultTimeout:             timeouts.playwright.defaultTimeout.inMilliseconds(),
         }),
