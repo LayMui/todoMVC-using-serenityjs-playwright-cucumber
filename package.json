@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf target",
     "test": "failsafe clean test:execute test:report",
-    "test:execute": "cucumber-js --tags='@test'",
+    "test:execute": "cucumber-js",
     "test:report": "serenity-bdd run --features ./features",
     "start": "mkdirp target/site/serenity && npx http-server -p 8080 target/site/serenity -s -o",
     "lint": "eslint --ext ts --config .eslintrc.js .",

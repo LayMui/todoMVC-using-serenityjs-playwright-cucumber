@@ -26,6 +26,18 @@ export const ManageToDo = {
             Press.the(Key.Enter).in(ToDoPage.newTodo())
         ),
 
+    addTodoList: (item: string) => 
+        Task.where(
+            `#actor add item ${item} to the list`,
+            Wait.upTo(Duration.ofMilliseconds(50000)).until(
+                ToDoPage.newTodo(),
+                isVisible()
+            ),
+            Enter.theValue(item).into(ToDoPage.newTodo()),
+            Press.the(Key.Enter).in(ToDoPage.newTodo())
+    ),
+    
+
     aTodoList: (items: string) => {
         const itemArray = items.split(',').map(item => item.trim());
         return Task.where(
@@ -97,5 +109,18 @@ export const ManageToDo = {
           
       );
   },
+
+
+  addCompletedTask: (numOfItem: number) =>
+    Task.where(
+        `#actor complete ${numOfItem} task`,
+        Wait.upTo(Duration.ofMilliseconds(50000)).until(
+            ToDoPage.todoList(),
+            isVisible()
+        ),
+        Click.on(ToDoPage.toggleTodoByIndex(numOfItem)),
+       
+    ),
+
 
 };

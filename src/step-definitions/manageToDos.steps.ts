@@ -5,6 +5,7 @@ import { ManageToDo } from '../task/ManageTodo';
 import { VerifyToDo } from '../task/VerifyTodo';
 
 import { isPresent } from '@serenity-js/assertions'
+import { generateRandomString } from '../task/generateRandomString';
 
 
 /**
@@ -101,3 +102,30 @@ Then('{pronoun} is able to see the list is clear', async(actor: Actor) => {
    
 });
 
+Given('{pronoun} has already added {int} items in the todo list', async (actor: Actor, numOfItems: number) => {
+    
+     // Create an array of random strings based on numOfItems
+     const randomItems = Array.from({ length: numOfItems }, () => generateRandomString());
+     await actor.attemptsTo(
+        notes().set('totalNumOfItems', numOfItems),
+        ...randomItems.map(item => ManageToDo.addTodoList(item)) // Spread the array of tasks
+    );
+});
+
+
+When('{pronoun} wants to mark {int} todo item as completed', async (actor: Actor, numOfItems: number) => {
+    const totalNumOfItems = await actor.answer(notes().get('totalNumOfItems'));
+    if (numOfItems > totalNumOfItems) return
+
+    await actor.attemptsTo(
+        ManageToDo.addCompletedTask(numOfItems)
+    );
+});
+
+Then('{pronoun} is able to see {int} left', async(actor: Actor, numOfActiveItemsLeft: number) => {     
+    const itemLeft = numOfActiveItemsLeft?.toString()
+    await actor.attemptsTo(
+        VerifyToDo.isCompleted(`${itemLeft} items left!\nAllActiveCompleted\nClear completed`)
+    );
+   
+});
