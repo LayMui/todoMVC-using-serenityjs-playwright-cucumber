@@ -32,8 +32,7 @@ When('{pronoun} adds item {string} to the list of what needs to be done', async 
 Then('{pronoun} should see item added to the list to be completed', async(actor: Actor) => {     
     
     const item = await actor.answer(notes().get('item'));
-
-                                                                  
+                                            
      await actor.attemptsTo(
         Check.whether(notes().get('item'), isPresent())
             .andIfSo(

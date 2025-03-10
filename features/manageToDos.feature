@@ -2,7 +2,7 @@ Feature: Manage MVC todos
 
   In order to manage my todos list effectively
   As a busy developer Alice
-  Alice should able to add, remove and edit my todo items
+  Alice should able to add, remove and filter my todo items
 
   AUT: https://todomvc.com/examples/react/dist/
 
@@ -19,19 +19,17 @@ Feature: Manage MVC todos
       | cycling       |
 
 
-  Scenario Outline: Complete all the todo items
+  Scenario Outline: Able to complete the todo items and clear completed items 
     Given she has already added some items "<items>" in the todo list 
     When she completes each item in the list 
     Then she is able to see the list is clear
     When she clear off all items completed
     And she is able to see the list is now empty
    
-
     Examples:
       | items                               |
       | QA testing, cycling, washing car    |
    
-
 
     Scenario Outline: Able to remove all items individually
     Given she has already added some items "<items>" in the todo list 
@@ -43,7 +41,7 @@ Feature: Manage MVC todos
       | QA testing, cycling, washing car    |
 
 
- Scenario Outline: Able to filter out all the completed tasks
+ Scenario Outline: Able to see the number of active items left
     Given she has already added <number_of_items_added> items in the todo list 
     When she wants to mark <number_completed_items> todo item as completed
     Then she is able to see <number_of_active_items> left
