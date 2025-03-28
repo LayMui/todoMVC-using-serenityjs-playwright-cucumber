@@ -16,7 +16,7 @@ import { generateRandomString } from '../task/generateRandomString';
  */
 Given('{actor} use the todo MVC app', async (actor: Actor) =>
     await actor.attemptsTo(
-        Navigate.to('https://todomvc.com/examples/react/dist/'),
+        Navigate.to('/examples/react/dist/'),
     )
 );
 
