@@ -18,6 +18,16 @@ Feature: Manage MVC todos
       | QA testing    |
       | cycling       |
 
+@test
+  Scenario Outline: Unable to add todo item if it has only 1 character
+    When she adds item "<item>" to the list of what needs to be done
+    Then she should not able to see item added to the list to be completed
+
+    Examples:
+      | item  |
+      | Q     |
+    
+
 
   Scenario Outline: Able to complete the todo items and clear completed items 
     Given she has already added some items "<items>" in the todo list 
@@ -51,7 +61,6 @@ Feature: Manage MVC todos
       | 4                              | 1                      |  3                     |
 
 
-@test
  Scenario Outline: Able to edit the todo item
     When she adds item "<item>" to the list of what needs to be done
     And she want to edit the item to "<edited_item>"

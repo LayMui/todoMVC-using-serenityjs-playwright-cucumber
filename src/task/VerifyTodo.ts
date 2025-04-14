@@ -5,6 +5,7 @@ import { Ensure, equals, isFalse } from '@serenity-js/assertions'
 import { itemAdded, itemNameAdded } from '../page-objects/ItemAdded'
 import { todoCount, todoCountStatus } from '../page-objects/todoCount'
 import { clearCompletedButton } from '../page-objects/clearCompletedItem'
+import { notEqual } from 'assert'
 
 
 /**
@@ -27,8 +28,13 @@ export const VerifyToDo = {
     
     ),
 
+    isNotAdded: (item: string) =>
+      Task.where(
+        `#actor verify an item ${item} is not added`,
+        Ensure.that(itemNameAdded().isPresent(), isFalse()),
+      ),
+
     isCompleted: (actualText: string) => 
-       
      Task.where(
         `#actor verify task completion`,
         Ensure.that(todoCountStatus(), equals(actualText))

@@ -132,7 +132,7 @@ export const ManageToDo = {
             DoubleClick.on(ToDoPage.itemToEdit()),
            
             Enter.theValue(item).into(ToDoPage.todoItem()),
-         //   Press.the(Key.Enter).in(ToDoPage.itemToEdit())
+            Press.the(Key.Enter).in(ToDoPage.itemToEdit())
         ),
 
 };

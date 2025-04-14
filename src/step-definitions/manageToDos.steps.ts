@@ -43,6 +43,13 @@ Then('{pronoun} should see item added to the list to be completed', async(actor:
 });
 
 
+Then('{pronoun} should not able to see item added to the list to be completed', async(actor: Actor) => {     
+    const item = await actor.answer(notes().get('item'));
+    await actor.attemptsTo(
+            VerifyToDo.isNotAdded(item)
+    )
+});
+
 
 Given('{pronoun} has already added some items {string} in the todo list', async (actor: Actor, items: string) =>
     actor.attemptsTo(
