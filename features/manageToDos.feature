@@ -49,3 +49,15 @@ Feature: Manage MVC todos
     Examples:
       | number_of_items_added          | number_completed_items | number_of_active_items |
       | 4                              | 1                      |  3                     |
+
+
+@test
+ Scenario Outline: Able to edit the todo item
+    When she adds item "<item>" to the list of what needs to be done
+    And she want to edit the item to "<edited_item>"
+    Then she should see item added to the list to be completed
+
+    Examples:
+      | item          | edited_item     |
+      | QA testing    | E2E testing     |
+       

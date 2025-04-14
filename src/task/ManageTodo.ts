@@ -1,5 +1,5 @@
 import { Duration, Task, Wait } from '@serenity-js/core';
-import { Enter, isVisible, Key, Press, Click, Hover } from '@serenity-js/web';
+import { Enter, isVisible, Key, Press, Click, Hover, DoubleClick, Clear } from '@serenity-js/web';
 import { ToDoPage } from '../page-objects/TodoPage';
 import { clearCompletedButton } from '../page-objects/clearCompletedItem';
 
@@ -122,5 +122,17 @@ export const ManageToDo = {
        
     ),
 
+    editTask: (item: string) =>
+        Task.where(
+            `#actor edit an item ${item}`,
+            Wait.upTo(Duration.ofMilliseconds(50000)).until(
+                ToDoPage.itemToEdit(),
+                isVisible()
+            ),
+            DoubleClick.on(ToDoPage.itemToEdit()),
+           
+            Enter.theValue(item).into(ToDoPage.todoItem()),
+         //   Press.the(Key.Enter).in(ToDoPage.itemToEdit())
+        ),
 
 };

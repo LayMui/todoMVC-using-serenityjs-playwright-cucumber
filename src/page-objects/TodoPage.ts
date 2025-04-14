@@ -5,6 +5,10 @@ export const ToDoPage = {
 
   todoList: () => PageElement.located(By.css('ul[data-testid=todo-list]')),
 
+  itemToEdit: () => PageElement.located(By.css('.input-container')),
+
+  todoItem: () => PageElement.located(By.css('label[data-testid=todo-item-label]')),
+     
   toggleTodoByIndex: (index: number) =>
     PageElement.located(By.css(`ul.todo-list li:nth-child(${index}) .toggle[data-testid=todo-item-toggle]`)),
 

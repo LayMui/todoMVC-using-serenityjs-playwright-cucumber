@@ -128,3 +128,19 @@ Then('{pronoun} is able to see {int} left', async(actor: Actor, numOfActiveItems
     );
    
 });
+
+When('{pronoun} want to edit the item to {string}', async (actor: Actor, editedItem: string) => {
+    await actor.attemptsTo(
+        ManageToDo.editTask(editedItem),
+        notes().set('item', editedItem),
+    );
+});
+
+
+Then('{pronoun} should see item get updated', async(actor: Actor, numOfActiveItemsLeft: number) => {     
+    const itemLeft = numOfActiveItemsLeft?.toString()
+    await actor.attemptsTo(
+        VerifyToDo.isCompleted(`${itemLeft} items left!\nAllActiveCompleted\nClear completed`)
+    );
+   
+});
