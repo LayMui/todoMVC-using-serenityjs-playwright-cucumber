@@ -28,7 +28,7 @@ Feature: Manage MVC todos
       | Q     |
     
 
-
+@test
   Scenario Outline: Able to complete the todo items and clear completed items 
     Given she has already added some items "<items>" in the todo list 
     When she completes each item in the list 
@@ -40,7 +40,7 @@ Feature: Manage MVC todos
       | items                               |
       | QA testing, cycling, washing car    |
    
-
+@test
     Scenario Outline: Able to remove all items individually
     Given she has already added some items "<items>" in the todo list 
     When she wants to remove items the todo list
@@ -50,7 +50,7 @@ Feature: Manage MVC todos
       | items                               |
       | QA testing, cycling, washing car    |
 
-
+@test
  Scenario Outline: Able to see the number of active items left
     Given she has already added <number_of_items_added> items in the todo list 
     When she wants to mark <number_completed_items> todo item as completed

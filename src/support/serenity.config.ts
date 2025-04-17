@@ -7,13 +7,14 @@ import { Actors } from '../Actors';
 import path from 'path';
 
 
+
 const timeouts = {
     cucumber: {
         step: Duration.ofSeconds(30),                       // how long to wait for a Cucumber step to complete
     },
     playwright: {
         defaultNavigationTimeout: Duration.ofSeconds(10),   // how long to wait for a page to load
-        defaultTimeout:           Duration.ofSeconds(5),    // how long to wait for an element to show up
+        defaultTimeout:           Duration.ofSeconds(5),   // how long to wait for an element to show up
     },
     serenity: {
         cueTimeout:               Duration.ofSeconds(5),    // how long to wait for Serenity/JS to complete any post-test activities, like saving screenshots and reports
@@ -21,6 +22,7 @@ const timeouts = {
 }
 
 let browser: playwright.Browser;
+
 
 // Configure default Cucumber step timeout
 setDefaultTimeout(timeouts.cucumber.step.inMilliseconds());
